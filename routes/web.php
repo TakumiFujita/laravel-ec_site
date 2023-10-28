@@ -54,3 +54,7 @@ Route::delete('/delete/{id}', [ShopController::class, 'itemDelete'])->name('dele
 Route::get('/edit/{id}', [ShopController::class, 'edit'])->name('edit');
 //管理画面での商品の更新
 Route::get('/update/{stock}', [ShopController::class, 'update'])->name('update');
+//権限の付与
+Route::put('/roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
+//権限を外す
+Route::put('/roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
