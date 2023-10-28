@@ -8,6 +8,9 @@
     <body>
         <div class="shop-container">
             <h1>商品一覧</h1>
+            @auth
+                <div>{{ Auth::user()->name }}さんのページ</div>
+            @endauth
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
