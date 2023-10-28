@@ -1,0 +1,118 @@
+.slot-header {
+    display: none;
+}
+.mycart-container {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container {
+        width: 90%;
+    }
+}
+.mycart-container .message {
+    margin-bottom: 20px;
+    text-align: center;
+    color: red;
+}
+.mycart-container .items {
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 1%;
+        row-gap: 20px;
+    }
+}
+.mycart-container .items .item {
+    width: 100%;
+    background-color: #fff;
+    padding: 4%;
+    margin-bottom: 30px;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .items .item {
+        width: 32.6%;
+    }
+}
+.mycart-container .items .item .delete {
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.3em;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .items .item .delete {
+        font-size: 16px;
+    }
+}
+.mycart-container .items .item p {
+    font-size: 14px;
+    line-height: 1.3em;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .items .item p {
+        font-size: 16px;
+    }
+}
+.mycart-container .index {
+    display: block;
+    margin-top: 20px;
+    text-decoration: underline;
+}
+.mycart-container .purchase {
+    margin-top: 50px;
+}
+.mycart-container .purchase p {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.3em;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .purchase p {
+        font-size: 16px;
+    }
+}
+.mycart-container .purchase p:nth-of-type(2) {
+    margin-top: 10px;
+    font-weight: bold;
+}
+.mycart-container .purchase form {
+    margin-top: 20px;
+}
+.mycart-container .purchase form input {
+    background-color: #EE6875;
+    color: #fff;
+    padding: 5px 30px;
+    border-radius: 10px;
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    line-height: 1.3em;
+}
+@media screen and (min-width: 768px) {
+    .mycart-container .purchase form input {
+        font-size: 16px;
+    }
+}
+.mycart-container .empty {
+    text-align: center;
+}
+.mycart-container h1 {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+.mycart-container .disable {
+    pointer-events: none;
+    opacity: .5;
+}
