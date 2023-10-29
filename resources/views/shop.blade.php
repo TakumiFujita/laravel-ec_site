@@ -10,12 +10,14 @@
             <h1>商品一覧</h1>
             @auth
                 <div>{{ Auth::user()->name }}さんのページ</div>
+                @if ($role_id === 1)
+                    <a href="{{ route('admin') }}">管理者ページへ</a>
+                @endif
             @endauth
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                         this.closest('form').submit();">

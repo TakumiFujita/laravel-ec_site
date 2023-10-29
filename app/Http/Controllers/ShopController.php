@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
     public function index(Stock $stock)
     {
         $stocks = $stock->stockDisplay();
-        return view('shop', compact('stocks'));
+        $user = Auth::user();
+
+        if (is_null($user)) {
+            // ログインユーザーでない場合は、役割idを0に設定
+            $role_id = 0;
+        } else {
+            // ログインユーザーの場合は役割idを取得
+            $role = $user->roles->first();
+            $role_id = $role->id;
+        }
+        return view('shop', compact('stocks', 'role_id'));
     }
 
     public function productCreate()
