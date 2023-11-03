@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,3 +59,9 @@ Route::get('/update/{stock}', [ShopController::class, 'update'])->name('update')
 Route::put('/roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
 //権限を外す
 Route::put('/roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
+// プロフィールの編集ページ
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+// プロフィールの更新
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+// プロフィールの削除
+Route::post('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');

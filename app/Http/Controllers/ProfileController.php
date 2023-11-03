@@ -8,16 +8,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Role;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
+    // public function edit(Request $request): View
+    // {
+    //     return view('profile.edit', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
+
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        $roles = Role::all();
+        $user = Auth::user();
+
+        if (is_null($user)) {
+            // ログインユーザーでない場合は、役割idを0に設定
+            $role_id = 0;
+        } else {
+            // ログインユーザーの場合は役割idを取得
+            $role = $user->roles->first();
+            $role_id = $role->id;
+        }
+        return view('profileEdit', [
             'user' => $request->user(),
+            'roles' => $roles,
+            'role_id' => $role_id,
         ]);
     }
 

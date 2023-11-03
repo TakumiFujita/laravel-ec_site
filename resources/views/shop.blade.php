@@ -10,6 +10,7 @@
             <h1>商品一覧</h1>
             @auth
                 <div>{{ Auth::user()->name }}さんのページ</div>
+                <div><a href="{{ route('profile.edit') }}">プロフィール編集ページへ</a></div>
                 @if ($role_id === 1)
                     <a href="{{ route('admin') }}">管理者ページへ</a>
                 @endif
