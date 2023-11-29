@@ -4,7 +4,6 @@
 
 @section('content')
     <link href="{{ asset('css/productCreate.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/reset.css') }}" rel="stylesheet" type="text/css">
 
     <body>
         <div class="productCreate-container">
