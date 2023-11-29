@@ -23,14 +23,17 @@
             <form action="{{ route('productStore') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="title-wrap">商品タイトル : <input type="text" name="name" placeholder="商品タイトル"
-                        value="{{ old('name') }}"></div>
+                        value="{{ old('name') }}" class="border rounded border-sky-500"></div>
                 <div class="img-wrap">商品画像 : <input type="file" name="imgpath" accept="image/jpg,image/png"></div>
                 <div class="detail-wrap">商品説明 :
-                    <textarea type="text" name="detail" cols="30" rows="10" placeholder="商品説明">{{ old('detail') }}</textarea>
+                    <textarea type="text" name="detail" cols="30" rows="10" placeholder="商品説明"
+                        class="border rounded border-sky-500">{{ old('detail') }}</textarea>
                 </div>
                 <div class="fee-wrap">値段 : <input type="text" name="fee" placeholder="10000"
-                        value="{{ old('fee') }}">円</div>
-                <div class="submit-wrap"><input type="submit" value="登録する"></div>
+                        value="{{ old('fee') }}" class="border rounded border-sky-500">円</div>
+                <div class="submit-wrap"><input type="submit"
+                        value="登録する"class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full cursor-pointer">
+                </div>
             </form>
         </div>
     </body>
