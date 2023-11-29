@@ -5,14 +5,16 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
     <body>
-        @auth
-            <div class="toolbar">
-                <a href="{{ route('shop') }}">商品画面へ</a>
-                <a href="{{ route('mycart') }}">マイカートへ</a>
-            </div>
-        @endauth
         <div class="admin-container">
             <h1>商品管理ページ</h1>
+            @auth
+                <div class="mt-10">
+                    <a href="{{ route('shop') }}"
+                        class="index bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full cursor-pointer">商品画面へ</a>
+                    <a href="{{ route('mycart') }}"
+                        class="index bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full cursor-pointer">マイカートへ</a>
+                </div>
+            @endauth
             @foreach ($stocks as $stock)
                 <div class="item">
                     <img src="{{ asset('storage/images/' . $stock->imgpath) }}" alt="">
