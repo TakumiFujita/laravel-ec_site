@@ -13,6 +13,8 @@
                         class="index bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full cursor-pointer">商品画面へ</a>
                     <a href="{{ route('mycart') }}"
                         class="index bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full cursor-pointer">マイカートへ</a>
+                    <a href="{{ route('productCreate') }}"
+                        class="index bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full cursor-pointer">商品登録画面へ</a>
                 </div>
             @endauth
             @foreach ($stocks as $stock)

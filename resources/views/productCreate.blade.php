@@ -31,7 +31,10 @@
                 </div>
                 <div class="fee-wrap">値段 : <input type="text" name="fee" placeholder="10000"
                         value="{{ old('fee') }}" class="border rounded border-sky-500">円</div>
-                <div class="submit-wrap"><input type="submit"
+                <div class="button-wrap flex mt-10">
+                    <a class="back bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full mr-5"
+                        href="{{ route('admin') }}">管理画面に戻る</a>
+                    <input type="submit"
                         value="登録する"class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full cursor-pointer">
                 </div>
             </form>
