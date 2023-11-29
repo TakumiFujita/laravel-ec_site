@@ -20,20 +20,25 @@
                     @endforeach
                 </ul>
             @endif
-            <a class="back" href="{{ route('admin') }}">管理画面に戻る</a>
             <h1>商品編集ページ</h1>
             <form action="{{ route('update', ['stock' => $stockEdit]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="title-wrap">商品タイトル : <input type="text" name="name" placeholder="商品タイトル"
-                        value="{{ old('name', $stockEdit->name) }}"></div>
+                        value="{{ old('name', $stockEdit->name) }}" class="border rounded border-sky-500"></div>
                 <div class="img-wrap">商品画像 : <input type="file" name="imgpath" accept="image/jpg,image/png"></div>
                 <div class="detail-wrap">商品説明 :
-                    <textarea type="text" name="detail" cols="30" rows="10" placeholder="商品説明">{{ old('detail', $stockEdit->detail) }}</textarea>
+                    <textarea type="text" name="detail" cols="30" rows="10" placeholder="商品説明"
+                        class="border rounded border-sky-500">{{ old('detail', $stockEdit->detail) }}</textarea>
                 </div>
                 <div class="fee-wrap">値段 : <input type="text" name="fee" placeholder="10000"
-                        value="{{ old('fee', $stockEdit->fee) }}">円</div>
-                <div class="submit-wrap"><input type="submit" value="登録する"></div>
+                        value="{{ old('fee', $stockEdit->fee) }}" class="border rounded border-sky-500">円</div>
+                <div class="button-wrap flex mt-10">
+                    <a class="back bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full mr-5"
+                        href="{{ route('admin') }}">管理画面に戻る</a>
+                    <input type="submit" value="登録する"
+                        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full cursor-pointer">
+                </div>
             </form>
         </div>
     </body>
