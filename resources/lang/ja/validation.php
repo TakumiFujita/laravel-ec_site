@@ -153,6 +153,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '商品タイトル',
+        'imgpath' => '商品画像',
+        'detail' => '商品説明',
+        'fee' => '値段',
+    ],
 
 ];
