@@ -25,7 +25,15 @@
                 @method('put')
                 <div class="title-wrap">商品タイトル : <input type="text" name="name" placeholder="商品タイトル"
                         value="{{ old('name', $stockEdit->name) }}" class="border rounded border-sky-500"></div>
-                <div class="img-wrap">商品画像 : <input type="file" name="imgpath" accept="image/jpg,image/png"></div>
+                <div class="img-wrap">商品画像 : <input type="file" name="imgpath" accept="image/jpg,image/png"
+                        onchange="previewImage(this)">
+                    @if ($stockEdit->imgpath)
+                        <img id="img-preview" class="mt-3 ml-20" src="{{ asset('storage/images/' . $stockEdit->imgpath) }}"
+                            alt="">
+                    @else
+                        <p>画像なし</p>
+                    @endif
+                </div>
                 <div class="detail-wrap">商品説明 :
                     <textarea type="text" name="detail" cols="30" rows="10" placeholder="商品説明"
                         class="border rounded border-sky-500">{{ old('detail', $stockEdit->detail) }}</textarea>
@@ -40,5 +48,33 @@
                 </div>
             </form>
         </div>
+        <script>
+            // 画像が選択されたときに呼び出される関数
+            function previewImage(input) {
+                // 画像のプレビューを表示するための <img> タグの要素を取得
+                var preview = document.getElementById('img-preview');
+
+                // 選択されたファイルを取得
+                var file = input.files[0];
+
+                // FileReader オブジェクトを作成
+                var reader = new FileReader();
+
+                // FileReader が読み込みを完了したときの処理
+                reader.onloadend = function() {
+                    // プレビューの <img> タグの src 属性に読み込んだデータの URL を設定
+                    preview.src = reader.result;
+                }
+
+                // 選択されたファイルがある場合
+                if (file) {
+                    // ファイルを読み込む
+                    reader.readAsDataURL(file);
+                } else {
+                    // ファイルがない場合はプレビューを空にする
+                    preview.src = "";
+                }
+            }
+        </script>
     </body>
 @endsection
