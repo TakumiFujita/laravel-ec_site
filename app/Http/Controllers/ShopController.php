@@ -84,6 +84,17 @@ class ShopController extends Controller
 
     public function itemDelete($id)
     {
+        // 商品をデータベースから削除前に画像パスを取得
+        $stock = Stock::find($id);
+        if (!$stock) {
+            return back()->with('error', '商品が見つかりませんでした。');
+        }
+
+        $imagePath = public_path("storage/images/{$stock->imgpath}");
+        // 商品画像を削除
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
         Stock::destroy($id);
         return back();
     }
