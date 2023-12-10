@@ -56,7 +56,7 @@
         </div>
         </div>
         <script src="{{ asset('js/common.js') }}"></script>
-        <script>
+        {{-- <script>
             const button = document.getElementById('button');
 
             button.addEventListener('click', function(e) {
@@ -70,6 +70,6 @@
                     button.classList.add('disable');
                 }
             });
-        </script>
+        </script> --}}
     </body>
 @endsection
