@@ -84,17 +84,11 @@ class ShopController extends Controller
 
     public function itemDelete($id)
     {
-        // 商品をデータベースから削除前に画像パスを取得
         $stock = Stock::find($id);
-        if (!$stock) {
-            return back()->with('error', '商品が見つかりませんでした。');
-        }
 
-        $imagePath = public_path("storage/images/{$stock->imgpath}");
         // 商品画像を削除
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-        }
+        $this->deleteLocalImage($stock);
+
         Stock::destroy($id);
         return back();
     }
@@ -107,8 +101,25 @@ class ShopController extends Controller
 
     public function update(Stock $stock, Request $request)
     {
-        $stock->store($request);
+        // 商品画像を削除
+        $this->deleteLocalImage($stock);
 
+        $stock->store($request);
         return back()->with('message', '商品の更新が完了しました');
+    }
+
+    public function deleteLocalImage(Stock $stock)
+    {
+        // 商品をデータベースから削除前に画像パスを取得
+        if (!$stock) {
+            return back()->with('error', '商品が見つかりませんでした。');
+        }
+
+        $imagePath = public_path("storage/images/{$stock->imgpath}");
+
+        // 商品画像を削除
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
     }
 }
