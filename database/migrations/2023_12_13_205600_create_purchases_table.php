@@ -23,7 +23,7 @@ return new class extends Migration
             // 購入者ID
             $table->unsignedBigInteger('purchaser_id');
             // 購入合計金額
-            $table->decimal('purchased_amount');
+            $table->unsignedInteger('purchased_amount');
             // タイムスタンプ（created_at, updated_at）の追加
             $table->timestamps();
         });

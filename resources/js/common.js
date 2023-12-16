@@ -6,8 +6,6 @@ button.addEventListener('click', function(e) {
 
     if (confirm) {
         purchaseForm.submit();
-    }
-    if (confirm) {
         button.classList.add('disable');
     }
 });
