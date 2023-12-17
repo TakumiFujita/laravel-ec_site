@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('purchase_details', function (Blueprint $table) {
+            $table->id();
             // 購入明細ID
-            $table->bigIncrements('purchased_detail_id');
+            $table->unsignedBigInteger('purchased_detail_id');
             // 商品ID
             $table->unsignedBigInteger('item_id');
             // 購入数
