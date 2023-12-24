@@ -13,6 +13,8 @@
                 <div class="flex justify-end item-container">
                     <a class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
                         href="{{ route('profile.edit') }}">プロフィール編集ページ</a>
+                    <a class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
+                        href="{{ route('purchaseHistory') }}">購入履歴ページ</a>
                     @if ($role_id === 1)
                         <a href="{{ route('admin') }}"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded">管理者ページ</a>

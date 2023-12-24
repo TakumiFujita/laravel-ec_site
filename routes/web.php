@@ -45,6 +45,8 @@ Route::post('/addmycart', [ShopController::class, 'addMycart'])->name('addmycart
 Route::delete('/cartdelete', [ShopController::class, 'deleteCart'])->name('cartdelete');
 //マイカートに追加した商品の購入
 Route::post('/purchase', [ShopController::class, 'purchase'])->name('purchase');
+// 購入履歴ページ
+Route::get('/purchaseHistory', [ShopController::class, 'displayHistory'])->name('purchaseHistory');
 //購入ページをリロード
 Route::get('/purchase', [ShopController::class, 'redirect'])->name('shop');
 //管理画面の表示

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Cart;
+use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ShopController extends Controller
 {
@@ -121,5 +124,41 @@ class ShopController extends Controller
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
+    }
+
+    public function displayHistory()
+    {
+        $user = Auth::user();
+        $user_id = Auth::id();
+        // 購入商品を取得
+        // 購入テーブルより、購入者IDに紐づくpurchased_idを全て取得
+        $purchased_items = Purchase::where('purchaser_id', $user_id)->orderby('purchased_time', 'desc')->get();
+        // dd($purchased_items);
+        // 購入明細テーブルより、purchased_idに紐付くitem_idを全て取得
+
+        // viewに渡す際の連想配列を定義
+        $purchased_items_arr = [];
+
+        foreach ($purchased_items as $purchased_item) {
+            $purchased_id = $purchased_item->purchased_id;
+            // dd($purchased_id);
+            $purchased_details = PurchaseDetail::where('purchased_id', $purchased_id)->get();
+            // dd($purchased_details);
+            foreach ($purchased_details as $purchased_detail) {
+                $item_id = $purchased_detail->item_id;
+                // $purchase_day = $purchased_detail->created_at;
+                $date = Carbon::createFromFormat('Y-m-d H:i:s', $purchased_detail->created_at)->format('Y年m月d日 H:i');
+                $stock = Stock::where('id', $item_id)->first();
+                // dd($stock);
+
+                $purchased_items_arr[] = array(
+                    'name' => $stock->name,
+                    'imgpath' => $stock->imgpath,
+                    'date' => $date,
+                );
+            }
+        }
+        // dd($purchased_items_arr);
+        return view('purchaseHistory', compact('purchased_items_arr'));
     }
 }
