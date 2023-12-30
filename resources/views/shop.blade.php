@@ -33,6 +33,19 @@
                 </div>
             @endauth
             <div class="item-container">
+                <form action="/index" method="GET" class="flex items-center">
+                    <input type="text" name="keyword" value="{{ $keyword }}"
+                        class="border rounded border-sky-500 py-2 px-4 w-80">
+                    <button type="submit"
+                        class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-base border text-white py-2 px-4 rounded">
+                        <svg class="h-6 w-6 text-white-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            <div class="item-container">
                 @foreach ($stocks as $stock)
                     <div class="item">
                         <p>{{ $stock->name }}<br>{{ $stock->fee }}円</p>

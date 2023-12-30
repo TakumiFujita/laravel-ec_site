@@ -10,11 +10,24 @@ use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+
 class ShopController extends Controller
 {
-    public function index(Stock $stock)
+    public function index(Request $request, Stock $stock)
     {
-        $stocks = $stock->stockDisplay();
+        // キーワードを取得
+        $keyword = $request->input('keyword');
+
+        $query = Stock::query();
+        // キーワードが空でない、もしくは0でない場合、商品名or商品説明から一致するものを検索する
+        if (!empty($keyword) || $keyword == '0') {
+            $stocks = $query->where('name', 'LIKE', "%{$keyword}%")
+                ->orWhere('detail', 'LIKE', "%{$keyword}%")->get();
+        } else {
+            // キーワードが空の場合は全商品を取得
+            $stocks = $stock->stockDisplay();
+        }
+
         $user = Auth::user();
 
         if (is_null($user)) {
@@ -25,7 +38,7 @@ class ShopController extends Controller
             $role = $user->roles->first();
             $role_id = $role->id;
         }
-        return view('shop', compact('stocks', 'role_id'));
+        return view('shop', compact('stocks', 'keyword', 'role_id'));
     }
 
     public function productCreate()
