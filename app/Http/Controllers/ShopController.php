@@ -19,10 +19,20 @@ class ShopController extends Controller
         $keyword = $request->input('keyword');
 
         $query = Stock::query();
-        // キーワードが空でない、もしくは0でない場合、商品名or商品説明から一致するものを検索する
+        // キーワードが空でない場合、商品名or商品説明から一致するものを検索する
         if (!empty($keyword) || $keyword == '0') {
-            $stocks = $query->where('name', 'LIKE', "%{$keyword}%")
-                ->orWhere('detail', 'LIKE', "%{$keyword}%")->get();
+            // 全角スペースを半角スペースに変換
+            $keyword = mb_convert_kana($keyword, 's');
+            // 半角スペースで区切り、配列にする
+            $keywords_arr = preg_split('/[\s]+/', $keyword);
+            // 複数のキーワードが、nameかdetailのどちらかにマッチする商品を検索クエリを作成
+            $query->where(function ($q) use ($keywords_arr) {
+                foreach ($keywords_arr as $keyword) {
+                    $q->orWhere('name', 'LIKE', "%{$keyword}%")->orWhere('detail', 'LIKE', "%{$keyword}%");
+                }
+            });
+            // クエリ検索を実行し、条件にマッチする商品を取得
+            $stocks = $query->get();
         } else {
             // キーワードが空の場合は全商品を取得
             $stocks = $stock->stockDisplay();
