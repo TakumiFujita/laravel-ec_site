@@ -9,7 +9,17 @@
         <div class="shop-container">
             <h1>商品一覧</h1>
             @auth
-                <div class="item-container">{{ Auth::user()->name }}さんのページ</div>
+                <div class="item-container">
+                    {{ Auth::user()->name }}さんのページ
+                    <a href="{{ route('mycart') }}">
+                        <svg class="h-8 w-8 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1" />
+                            <circle cx="20" cy="21" r="1" />
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                    </a>
+                </div>
                 <div class="flex justify-end item-container">
                     <a class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
                         href="{{ route('profile.edit') }}">プロフィール編集ページ</a>
