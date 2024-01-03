@@ -32,10 +32,10 @@ class ShopController extends Controller
                 }
             });
             // クエリ検索を実行し、条件にマッチする商品を取得
-            $stocks = $query->get();
+            $stocks = $query->paginate(9);
         } else {
             // キーワードが空の場合は全商品を取得
-            $stocks = $stock->stockDisplay();
+            $stocks = $stock->stockDisplay()->paginate(9);
         }
 
         $user = Auth::user();

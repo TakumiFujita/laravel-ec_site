@@ -38,7 +38,6 @@ class Stock extends Model
     {
         $items = Stock::all();
 
-        return $items;
+        return Stock::query();
     }
-    
 }

@@ -45,3 +45,8 @@
   font-size: 25px;
   text-align: center;
 }
+
+.paginate-container {
+  display: flex;
+  justify-content: space-between;
+}
