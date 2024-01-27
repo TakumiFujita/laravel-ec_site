@@ -32,6 +32,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="shop-container paginate-container">
+                {{ $stocks->links('vendor.pagination.tailwind2') }}
+            </div>
         </div>
     </body>
 @endsection

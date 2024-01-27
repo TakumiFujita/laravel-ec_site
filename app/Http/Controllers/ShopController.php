@@ -35,7 +35,8 @@ class ShopController extends Controller
             $stocks = $query->paginate(9);
         } else {
             // キーワードが空の場合は全商品を取得
-            $stocks = $stock->stockDisplay()->paginate(9);
+            // $stocks = $stock->stockDisplay()->paginate(9);
+            $stocks = $stock->stockDisplay(9);
         }
 
         $user = Auth::user();
@@ -104,7 +105,7 @@ class ShopController extends Controller
 
     public function admin(Stock $stock)
     {
-        $stocks = $stock->stockDisplay();
+        $stocks = $stock->stockDisplay(10);
         return view('admin', compact('stocks'));
     }
 

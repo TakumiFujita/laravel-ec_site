@@ -34,10 +34,8 @@ class Stock extends Model
         $this->save();
     }
 
-    public function stockDisplay()
+    public function stockDisplay($i)
     {
-        $items = Stock::all();
-
-        return Stock::query();
+        return Stock::paginate($i);
     }
 }
