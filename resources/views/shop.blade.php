@@ -21,16 +21,16 @@
                     </a>
                 </div>
                 <div class="flex justify-end item-container">
-                    <a class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
-                        href="{{ route('profile.edit') }}">プロフィール編集ページ</a>
-                    <a class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
-                        href="{{ route('purchaseHistory') }}">購入履歴ページ</a>
+                    <a class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded"
+                        href="{{ route('profile.edit') }}">プロフィール編集</a>
+                    <a class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded"
+                        href="{{ route('purchaseHistory') }}">購入履歴</a>
                     @if ($role_id === 1)
                         <a href="{{ route('admin') }}"
-                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded">管理者ページ</a>
+                            class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded">管理者</a>
                     @endif
                     <div class="cursor-pointer" onclick="event.preventDefault(); this.querySelector('form').submit();">
-                        <div class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded">
+                        <div class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded">
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
