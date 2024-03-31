@@ -45,6 +45,12 @@ Route::post('/addmycart', [ShopController::class, 'addMycart'])->name('addmycart
 Route::delete('/cartdelete', [ShopController::class, 'deleteCart'])->name('cartdelete');
 //マイカートに追加した商品の購入
 Route::post('/purchase', [ShopController::class, 'purchase'])->name('purchase');
+//お気に入りページ
+Route::get('/favoritesList', [ShopController::class, 'favoritesList'])->name('favoritesList');
+//商品をお気に入りに追加
+Route::post('/addToFavorites', [ShopController::class, 'addToFavorites'])->name('addToFavorites');
+//商品をお気に入りから削除
+Route::post('/removeFromFavorites', [ShopController::class, 'removeFromFavorites'])->name('removeFromFavorites');
 // 購入履歴ページ
 Route::get('/purchaseHistory', [ShopController::class, 'displayHistory'])->name('purchaseHistory');
 //購入ページをリロード

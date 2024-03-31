@@ -24,6 +24,8 @@
                     <a class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded"
                         href="{{ route('profile.edit') }}">プロフィール編集</a>
                     <a class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded"
+                        href="{{ route('favoritesList') }}">お気に入り</a>
+                    <a class="bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded"
                         href="{{ route('purchaseHistory') }}">購入履歴</a>
                     @if ($role_id === 1)
                         <a href="{{ route('admin') }}"
@@ -58,6 +60,23 @@
             <div class="item-container">
                 @foreach ($stocks as $stock)
                     <div class="item">
+                        @auth
+                            <div class="favorite w-72">
+                                @if ($stock->isFavoritedByUser(auth()->id(), $stock->id))
+                                    <!-- ユーザーがお気に入りに登録している場合 -->
+                                    <button class="material-symbols-outlined favorite-star favorite-star-clicked favorited"
+                                        data-stock-id="{{ $stock->id }}">
+                                        star
+                                    </button>
+                                @else
+                                    <!-- ユーザーがお気に入りに登録していない場合 -->
+                                    <button class="material-symbols-outlined favorite-star"
+                                        data-stock-id="{{ $stock->id }}">
+                                        star
+                                    </button>
+                                @endif
+                            </div>
+                        @endauth
                         <p>{{ $stock->name }}<br>{{ $stock->fee }}円</p>
                         <div><img src="{{ asset('storage/images/' . $stock->imgpath) }}" alt=""></div>
                         <p class="text-center">{{ $stock->detail }}</p>
@@ -78,3 +97,101 @@
         </div>
     </body>
 @endsection
+<script>
+    // DOMが完全に読みこまれた後にコードを実行
+    document.addEventListener("DOMContentLoaded", function() {
+        const favoriteItems = document.querySelectorAll('.favorite-star');
+        favoriteItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // クリックした要素のdata-stock-id属性の属性値を取得し、商品idを取得
+                const stockId = this.getAttribute('data-stock-id');
+                // クリックされた要素が既にお気に入りであるかどうかを確認する
+                const isFavorite = this.classList.contains('favorited');
+
+                // 既にお気に入りであれば削除、そうでなければ追加の処理を行う
+                if (isFavorite) {
+                    // お気に入りの削除処理を行う
+                    removeFromFavorites(stockId)
+                        .then(response => {
+                            if (response.ok) {
+                                // クリックされた要素からクラスを削除する
+                                this.classList.remove('favorite-star-clicked');
+                                this.classList.remove('favorited');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('お気に入りの削除に失敗しました:', error);
+                            // 失敗時の処理をここに書く
+                        });
+                } else {
+                    // お気に入りの追加処理を行う
+                    addToFavorites(stockId)
+                        .then(response => {
+                            // クリックされた要素にクラスを追加する
+                            if (response.ok) {
+                                this.classList.add('favorite-star-clicked');
+                                this.classList.add('favorited');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('お気に入りの追加に失敗しました:', error);
+                            // 失敗時の処理をここに書く
+                        });
+                }
+            });
+        });
+
+        // お気に入り追加処理
+        async function addToFavorites(stockId) {
+            // ここで非同期リクエストを送信してお気に入りテーブルに登録する処理を実装する
+            // fetchの第一引数で指定したURLに対してリクエストを送信
+            try {
+                const response = await fetch('/addToFavorites', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        stock_id: stockId
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response;
+            } catch (error) {
+                console.error('There was a problem with your fetch operation:', error);
+                throw error;
+            }
+        }
+
+        // お気に入り削除処理
+        async function removeFromFavorites(stockId) {
+            // ここで非同期リクエストを送信してお気に入りテーブルに登録する処理を実装する
+            // fetchの第一引数で指定したURLに対してリクエストを送信
+            try {
+                const response = await fetch('/removeFromFavorites', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        stock_id: stockId
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response;
+            } catch (error) {
+                console.error('There was a problem with your fetch operation:', error);
+                throw error;
+            }
+        }
+
+    });
+</script>

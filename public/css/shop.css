@@ -45,8 +45,21 @@
   font-size: 25px;
   text-align: center;
 }
-
 .paginate-container {
   display: flex;
   justify-content: space-between;
+}
+.favorite {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.favorite-star {
+  color: red;
+}
+.favorite-star-clicked {
+  font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
 }

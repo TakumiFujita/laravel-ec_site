@@ -7,6 +7,7 @@ use App\Models\Stock;
 use App\Models\Cart;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -96,6 +97,37 @@ class ShopController extends Controller
         $request->session()->regenerateToken();
 
         return view('purchase');
+    }
+
+    public function addToFavorites(Request $request)
+    {
+        $stock_id = $request->stock_id;
+        $user = Auth::user();
+        //お気に入りテーブルにデータを挿入
+        $favorite = new Favorite();
+        $favorite->user_id = $user->id;
+        $favorite->item_id = $stock_id;
+        $favorite->save();
+
+        return back()->with('success', '商品をお気に入りに追加しました');
+    }
+
+    public function removeFromFavorites(Request $request)
+    {
+        $stock_id = $request->stock_id;
+        $user = Auth::user();
+        //お気に入りテーブルからデータを削除
+        Favorite::where('user_id', $user->id)->where('item_id', $stock_id)->delete();
+
+        // return back()->with('success', '商品をお気に入りから削除しました');
+    }
+
+    public function favoritesList()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $favorites = Favorite::where('user_id', $user_id)->get();
+        return view('favorite', ['favorites' => $favorites]);
     }
 
     public function redirect()
